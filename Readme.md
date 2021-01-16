@@ -73,6 +73,38 @@ Tras esto, para levantar el servidor, usando lo que acabamos de hacer, podríamo
 npm run dev
 ``` 
 
+Creación de Modelos de datos
+====
+Dentro de src creamos la carpeta models y dentro de ella producto.interface.ts, quedando src/models/producto.interface.ts:
+```
+/**
+ * Se usará para representar los datos base de los productos 
+ * (por ejemplo cuando el producto no tiene id, porque no está "persistido" )
+ */
+export interface BaseProducto {
+    nombre: string;
+    precio: number;
+    descripcion: string;
+    imagen: string;
+}
+
+/**
+ * Se usará para representar un producto ya "persistido"
+ */
+export interface Producto extends BaseProducto {
+    id: number;
+}
+```
+
+Dentro de src creamos la carpeta models y dentro de ella productos.interface.ts, quedando src/models/productos.interface.ts:
+```
+import { Producto } from "./producto.interface";
+
+export interface Productos {
+  [key: number]: Producto;
+}
+```
+
 
 
 
