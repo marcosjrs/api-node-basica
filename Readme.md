@@ -268,9 +268,63 @@ Y después, para que las peticiones a resolver partan de laurl de /api/productos
 app.use("/api/productos",productosRouter);
 ```
 
+Manejo de paginas no encontradas y de error
+===
+
+Manejo de pagina de error
+---
+Creamos la carpeta common dentro de src, quedando src/common. Y dentro creamos el archivo http-exception.ts, con el siguiente contenido:
+```
+export default class HttpException extends Error {
+    statusCode?: number;
+    status?: number;
+    message: string;
+    error: string | null;
+
+    constructor(statusCode: number, message: string, error?: string) {
+        super(message);
+
+        this.statusCode = statusCode;
+        this.message = message;
+        this.error = error || null;
+    }
+}
+```
+
+Creamos la carpeta middleware dentro de src, quedando src/middleware. Y dentro creamos el archivo error.middleware.ts, con el siguiente contenido:
+```
+import HttpException from "../common/http-exception";
+import { Request, Response, NextFunction } from "express";
+
+//Para que express entienda que es un manejador de error, debe tener exactamente los cuatro parámetros
+export const errorHandler = ( error: HttpException, request: Request, response: Response, next: NextFunction ) => {
+  const status = error.statusCode || error.status || 500;
+
+  response.status(status).send(error);
+};
+```
+
+Manejo de pagina no encontrada
+---
+
+Creamos la carpeta middleware dentro de src, quedando src/middleware. Y dentro creamos el archivo not-found.middleware.ts, con el siguiente contenido:
+```
+import { Request, Response, NextFunction } from "express";
+
+export const notFoundHandler = ( request: Request, response: Response, next: NextFunction ) => {
+
+  const message = "Resource not found";
+
+  response.status(404).send(message);
+};
+```
+
+
+
 Pruebas
 ===
 Por ejemplo desde el postman, se puede:
+- crear un GET con url http://localhost:7000/api/lsdkaaskdjf y devolverá un texto indicando Recurso no encontrado
 - crear un GET con url http://localhost:7000/api/productos y devolverá la colleción de productos.
 - crear un GET con url http://localhost:7000/api/productos/2 y devolverá el producto 2
 - crear un DELETE con url http://localhost:7000/api/productos/2 y luego probar el GET del mismo producto para ver que se ha eliminado.
