@@ -1,6 +1,7 @@
 API básica en Node
 ===
-Se trata de unas pruebas, realizando una api básica con TypeScript y siguiendo una entrada del blog de auth0.com. No usa ninguna base de datos externa, se "guarda" en memoria; es simplemente para realizar unas pruebas y como mucho algún día aspirar al inicio de un skeleton en algún proyecto muy pequeño.
+Se trata de unas pruebas, y a modo de recordatorio para mi, realizando una api básica con TypeScript y siguiendo una entrada del blog de auth0.com. 
+No usa ninguna base de datos externa, se "guarda" en memoria; es simplemente para realizar unas pruebas y como mucho algún día aspirar al inicio de un skeleton en algún proyecto muy pequeño.
 
 Instalaciones iniciales y configuraciones
 ===
